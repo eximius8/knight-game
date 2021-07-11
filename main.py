@@ -13,8 +13,14 @@ monster_counter = 0
 hp = 10
 attack = 10
 
-def user_imput(user_message) -> str:
 
+def user_imput(user_message) -> str:
+    """Функция ввода выбора пользователя.
+
+    user_message - сообщение, показываемое пользователю
+    возвращает
+    str '1' или '2'
+    """
     while True:
         choice = input(user_message)
         if choice in ["1", "2"]:
@@ -45,7 +51,7 @@ def game() -> None:
         print('=============================\n')
         if monster_counter:
             print(f'{monster_counter} чудовище убито\n')
-       
+
         act = random.randint(1, 3)
         choice = ""
         if act == 1:
@@ -57,12 +63,12 @@ def game() -> None:
             newattack = random.randint(4, 15)
             print(f"Вы нашли МЕЧ силой {newattack}, сила вашего меча: {attack}")
             choice = user_imput(f"1 - взять МЕЧ силой {newattack}, 2 - оставить МЕЧ силой {attack}: ")
-            
+
             if choice == "1":
                 attack = newattack
         else:
-            monsterhp = random.randint(5, 19)
-            monsterattack = random.randint(5, 18)
+            monsterhp = random.randint(3, 8)
+            monsterattack = random.randint(1, 4)
             print(f"БОЙ, вы встретили чудовище с количеством жизней {monsterhp} и силой: {monsterattack}")
             choice = user_imput(f"1 - драться (у вас {hp} жизней и меч силой {attack}), 2 - убежать: ")
             if choice == "1":
@@ -79,5 +85,3 @@ def game() -> None:
         if monster_counter >= 10:
             print("ПОБЕДА")
             break
-
-#game()
