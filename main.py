@@ -13,6 +13,15 @@ monster_counter = 0
 hp = 10
 attack = 10
 
+def user_imput(user_message) -> str:
+
+    while True:
+        choice = input(user_message)
+        if choice in ["1", "2"]:
+            return choice
+        else:
+            print("Введите 1 или 2.")
+
 
 def game() -> None:
     """Функция начинающая игру.
@@ -33,6 +42,9 @@ def game() -> None:
     global attack
 
     while True:
+        print('=============================\n')
+        if monster_counter:
+            print(f'{monster_counter} чудовище убито\n')
        
         act = random.randint(1, 3)
         choice = ""
@@ -44,25 +56,15 @@ def game() -> None:
         elif act == 2:
             newattack = random.randint(4, 15)
             print(f"Вы нашли МЕЧ силой {newattack}, сила вашего меча: {attack}")
-
-            while True:
-                choice = input(f"1 - взять МЕЧ силой {newattack}, 2 - оставить МЕЧ силой {attack}: ")
-                if choice in ["1", "2"]:
-                    break
-                else:
-                    print("Введите 1 или 2.")
+            choice = user_imput(f"1 - взять МЕЧ силой {newattack}, 2 - оставить МЕЧ силой {attack}: ")
+            
             if choice == "1":
                 attack = newattack
         else:
             monsterhp = random.randint(5, 19)
             monsterattack = random.randint(5, 18)
             print(f"БОЙ, вы встретили чудовище с количеством жизней {monsterhp} и силой: {monsterattack}")
-            while True:
-                choice = input(f"1 - драться (у вас {hp} жизней и меч силой {attack}), 2 - убежать: ")
-                if choice in ["1", "2"]:
-                    break
-                else:
-                    print("Введите 1 или 2.")
+            choice = user_imput(f"1 - драться (у вас {hp} жизней и меч силой {attack}), 2 - убежать: ")
             if choice == "1":
                 if attack < monsterhp:
                     print('ПОРАЖЕНИЕ! игра окончена')
