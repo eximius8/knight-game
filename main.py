@@ -33,44 +33,49 @@ def game() -> None:
     global attack
 
     while True:
-        print('=============================\n')
-        if monster_counter:
-            print(f'{monster_counter} чудовище убито\n')
-
+       
         act = random.randint(1, 3)
         choice = ""
         if act == 1:
-            addedhp = random.randint(2, 6)
+            addedhp = random.randint(1, 2)
             hp += addedhp
-            print(f'Вы съели яблочко с {addedhp} жизнями, теперь у вас {hp} жизней')
+            print(f"Вы съели яблочко с {addedhp} жизнями, теперь у вас {hp} жизней")
 
         elif act == 2:
             newattack = random.randint(4, 15)
-            print(f'Вы нашли МЕЧ силой {newattack}, сила вашего меча: {attack}')
+            print(f"Вы нашли МЕЧ силой {newattack}, сила вашего меча: {attack}")
 
-            while choice not in ['1', '2']:
+            while True:
                 choice = input(f"1 - взять МЕЧ силой {newattack}, 2 - оставить МЕЧ силой {attack}: ")
-            if choice == '1':
+                if choice in ["1", "2"]:
+                    break
+                else:
+                    print("Введите 1 или 2.")
+            if choice == "1":
                 attack = newattack
         else:
             monsterhp = random.randint(5, 19)
             monsterattack = random.randint(5, 18)
-            print("БОЙ, вы встретили чудовище с количеством жизней {monsterhp} и силой: {monsterattack}")
-            while choice not in ['1', '2']:
-                choice = input("1 - драться (у вас {hp} жизней и меч силой {attack}), 2 - убежать: ")
-            if choice == '1':
+            print(f"БОЙ, вы встретили чудовище с количеством жизней {monsterhp} и силой: {monsterattack}")
+            while True:
+                choice = input(f"1 - драться (у вас {hp} жизней и меч силой {attack}), 2 - убежать: ")
+                if choice in ["1", "2"]:
+                    break
+                else:
+                    print("Введите 1 или 2.")
+            if choice == "1":
                 if attack < monsterhp:
-                    hp = 0
+                    print('ПОРАЖЕНИЕ! игра окончена')
+                    break
                 monster_counter += 1
                 hp -= monsterattack
 
         if hp <= 0:
-            print("ПОРАЖЕНИЕ")
+            print("ПОРАЖЕНИЕ! игра окончена")
             break
 
         if monster_counter >= 10:
-            print("ПОБЕДА!")
+            print("ПОБЕДА")
             break
 
-
-game()
+#game()

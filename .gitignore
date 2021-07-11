@@ -1,0 +1,5 @@
+.coverage
+__pycache__/
+requirements_dev.txt
+test_rpg.py
+tox.ini
