@@ -47,41 +47,39 @@ def game() -> None:
     global hp
     global attack
 
-    while True:
-        print('=============================\n')
+    while monster_counter < 10:
+        print('===================================================\n')
         if monster_counter:
             print(f'{monster_counter} чудовище убито\n')
 
         act = random.randint(1, 3)
         choice = ""
         if act == 1:
-            addedhp = random.randint(1, 2)
+            addedhp = random.randint(1, 6)
             hp += addedhp
             print(f"Вы съели яблочко с {addedhp} жизнями, теперь у вас {hp} жизней")
 
         elif act == 2:
             newattack = random.randint(4, 15)
-            print(f"Вы нашли МЕЧ силой {newattack}, сила вашего меча: {attack}")
-            choice = user_imput(f"1 - взять МЕЧ силой {newattack}, 2 - оставить МЕЧ силой {attack}: ")
+            print(f"Вы нашли МЕЧ силой {newattack}, сила вашего меча: {attack}.")
+            choice = user_imput(f"1 - взять новый меч силой {newattack}, 2 - оставить старый меч силой {attack}: ")
 
             if choice == "1":
                 attack = newattack
         else:
-            monsterhp = random.randint(3, 8)
-            monsterattack = random.randint(1, 4)
-            print(f"БОЙ, вы встретили чудовище с количеством жизней {monsterhp} и силой: {monsterattack}")
+            monsterhp = random.randint(3, 9)
+            monsterattack = random.randint(1, 10)
+            print(f"БОЙ, вы встретили чудовище с количеством жизней {monsterhp} и силой: {monsterattack}.")
             choice = user_imput(f"1 - драться (у вас {hp} жизней и меч силой {attack}), 2 - убежать: ")
             if choice == "1":
                 if attack < monsterhp:
-                    print('ПОРАЖЕНИЕ! игра окончена')
-                    break
+                    print('ПОРАЖЕНИЕ ! игра окончена')
+                    return
                 monster_counter += 1
                 hp -= monsterattack
 
         if hp <= 0:
-            print("ПОРАЖЕНИЕ! игра окончена")
-            break
+            print("ПОРАЖЕНИЕ ! игра окончена")
+            return
 
-        if monster_counter >= 10:
-            print("ПОБЕДА")
-            break
+    print("ПОБЕДА")

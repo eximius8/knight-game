@@ -1,4 +1,2 @@
 .coverage
 __pycache__/
-test_rpg.py
-tox.ini
