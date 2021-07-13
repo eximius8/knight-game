@@ -14,7 +14,7 @@ hp = 10
 attack = 10
 
 
-def user_imput(user_message) -> str:
+def user_imput(user_message: str) -> str:
     """Функция ввода выбора пользователя.
 
     user_message - сообщение, показываемое пользователю
@@ -73,7 +73,7 @@ def game() -> None:
             choice = user_imput(f"1 - драться (у вас {hp} жизней и меч силой {attack}), 2 - убежать: ")
             if choice == "1":
                 if attack >= monsterhp:
-                    monster_counter += 1                
+                    monster_counter += 1
                 hp -= monsterattack
 
         if hp <= 0:
@@ -81,4 +81,3 @@ def game() -> None:
             return
 
     print("ПОБЕДА")
-
