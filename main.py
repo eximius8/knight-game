@@ -50,7 +50,7 @@ def game() -> None:
     while monster_counter < 10:
         print('===================================================\n')
         if monster_counter:
-            print(f'{monster_counter} чудовище убито\n')
+            print(f'{monster_counter} чудовищ убито\n')
 
         act = random.randint(1, 3)
         choice = ""
@@ -72,10 +72,8 @@ def game() -> None:
             print(f"БОЙ, вы встретили чудовище с количеством жизней {monsterhp} и силой: {monsterattack}.")
             choice = user_imput(f"1 - драться (у вас {hp} жизней и меч силой {attack}), 2 - убежать: ")
             if choice == "1":
-                if attack < monsterhp:
-                    print('ПОРАЖЕНИЕ ! игра окончена')
-                    return
-                monster_counter += 1
+                if attack >= monsterhp:
+                    monster_counter += 1                
                 hp -= monsterattack
 
         if hp <= 0:
@@ -83,3 +81,4 @@ def game() -> None:
             return
 
     print("ПОБЕДА")
+
