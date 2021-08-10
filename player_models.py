@@ -1,5 +1,5 @@
 """Для классов игроков, монстров и инвентаря."""
-from abc import ABC, abstractmethod
+from feature_models import Weapon
 import random
 from custom_exceptions import GameLostException, GameWonException
 from abstract_classes import AbstractCreature, AbstractEncounter,  AbstractCreatureFactory
@@ -34,7 +34,7 @@ class Player(AbstractCreature):
             3 - магом
             """
         self.monsters_killed = 0
-        self.features = {1: "Меч"}
+        self.features = {1: Weapon(power=10, name='меч', code=1)}
         while True:
             choice = input(intro_text)
             if choice in {"1": "Воин", "2": "Лучник", "3": "Маг"}.keys():
@@ -43,8 +43,8 @@ class Player(AbstractCreature):
             else:
                 print("Выберете.")
     
-    def add_feature(self, choice, human_readable):
-        self.features[choice] = human_readable
+    def add_feature(self, feature):
+        self.features[feature.code] = feature
 
     
     def check_status(self):
@@ -52,6 +52,13 @@ class Player(AbstractCreature):
             raise GameLostException
         if self.monsters_killed > 9:
             raise GameWonException
+        print("====================================")
+        print("====================================")
+        print("====================================")
+        print(f"У вас {self.hp} жизней")
+        print(f"У вас есть следующие артефакты: " + ", ".join([str(feature) for feature in self.features.values()]))
+        print()
+
 
 
 

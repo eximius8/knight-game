@@ -19,12 +19,14 @@ class Weapon(AbstractEncounter):
         self.name = name
         self.code = code
         super().__init__()
+    
+    def __str__(self):
+        return f"{self.name} силой {self.power}"
 
     def encounter(self, creature):
         
         while True:
-            input_message = f"""
-                Вы нашли новое оружее: {self.name} силой {self.power}.        
+            input_message = f"""Вы нашли новое оружее: {self.name} силой {self.power}.        
                 1 - взять
                 2 - пройти мимо \n
                 """
@@ -39,10 +41,9 @@ class Weapon(AbstractEncounter):
                 print("Выберете.")
 
 
-class RandomFeature(AbstractFeatureFactory):
+class RandomFeatureFactory(AbstractFeatureFactory):
 
     def create_feature(self):
-
         
         choice = random.randint(0,4)
         

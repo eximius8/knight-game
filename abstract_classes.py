@@ -29,13 +29,6 @@ class AbstractCreature(ABC):
     def add_weapon(self, weapon):
         self.weapons.append(weapon)
     
-    @abstractmethod
-    def fight(self):
-        """
-        Note that the Creator may also provide some default implementation of
-        the factory method.
-        """
-        pass
 
 
 class AbstractCreatureFactory(ABC):
