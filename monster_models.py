@@ -1,9 +1,12 @@
+"""Для классов монстров."""
 import random
 from abstract_classes import AbstractCreature, AbstractEncounter, AbstractCreatureFactory
 from feature_models import FeatureFactory
 
 
 class Monster(AbstractCreature, AbstractEncounter):
+    """Класс монстр.
+    Наследуется от абстрактного героя и объекта, с которым можно встретится."""
 
     def is_alive(self):
         if self.hp > 0:
@@ -12,19 +15,16 @@ class Monster(AbstractCreature, AbstractEncounter):
         return False
 
     def encounter(self, player):
-        intro_text = f"""Ваш противник: {self.name} с числом жизней {self.hp}:
-1 - драться
-2 - бежать
-"""
         while True:
-            choice = input(intro_text)
+            print(f"Ваш противник: {self.name} с числом жизней {self.hp}:")
+            print("1 - драться\n2 - бежать")
+            choice = input("Ваш выбор: ")
             if choice == "1":
+                player.fight(self, player.attack_strategy)
+                self.fight(player)
                 break
-
             elif choice == "2":
                 break
-            else:
-                print("Выберете.")
 
 
 class MonsterFactory(AbstractCreatureFactory):
@@ -33,7 +33,7 @@ class MonsterFactory(AbstractCreatureFactory):
         creature_type = random.randint(1,3)
         feature_factory = FeatureFactory()
         features = {1: feature_factory.create_weapon(creature_type)}
-            
+
         if creature_type == 2:
             features[3] = feature_factory.create_weapon(3)
 

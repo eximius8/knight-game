@@ -1,11 +1,16 @@
+"""Модели для инвентаря (артефактов)."""
 from abstract_classes import AbstractEncounter, AbstractFeatureFactory
 import random
 
 
 class Apple(AbstractEncounter):
+    """Артефакт яблочко - при поедании число жизней возрастает."""
 
     def encounter(self, creature):
+        """Встреча игрока с яблочком.
 
+            creature - модель игрока.
+            По итогу встречи число жизней увеличивается."""
         added_lives = random.randint(3,15)
         creature.hp = creature.hp + added_lives
         print(f"Вы нашли яблочко с {added_lives} жизнями. Теперь у вас {creature.hp} жизней.")
@@ -15,8 +20,7 @@ class Totem(AbstractEncounter):
 
     def __init__(self) -> None:
         self.code = 5
-        
- 
+
     def __str__(self) -> str:
         return "тотем"
 
@@ -25,20 +29,16 @@ class Totem(AbstractEncounter):
 
     def encounter(self, creature):
         while True:
-            choice = input("Вы нашли тотем! \n 1 - взять тотем \n 2 - пройти мимо\n")
+            print("Вы нашли тотем")
+            print("\n1 - взять тотем \n2 - пройти мимо\n")
+            choice = input("Ваш выбор: ")
             if choice == "1":
-              #  self.save_game(creature)
+                # self.save_game(creature)
                 creature.add_feature(self)
                 print("Вы взяли тотем!")
                 break
             elif choice == "2":
                 break
-            else:
-                print("Выберете.")
-        
-        added_lives = random.randint(3,15)
-        creature.hp = creature.hp + added_lives
-        print(f"Вы нашли яблочко с {added_lives} жизнями. Теперь у вас {creature.hp} жизней.")
 
 
 class Weapon(AbstractEncounter):
@@ -48,26 +48,22 @@ class Weapon(AbstractEncounter):
         self.name = name
         self.code = code
         super().__init__()
-    
+
     def __str__(self):
         return f"{self.name} силой {self.power}"
 
     def encounter(self, creature):
-        
+
         while True:
-            input_message = f"""Вы нашли новое оружее: {self.name} силой {self.power}.
-1 - взять
-2 - пройти мимо
-"""
-            choice = input(input_message)
+            print(f"Вы нашли новое оружее: {self.name} силой {self.power}.")
+            print("1 - взять\n2 - пройти мимо\n")
+            choice = input("Ваш выбор: ")
             if choice == "1":
                 creature.add_feature(self)
                 print(f"У вас новое оружее! {self.name} силой {self.power}.")
                 break
             elif choice == "2":
                 break
-            else:
-                print("Выберете.")
 
 
 class FeatureFactory(AbstractFeatureFactory):
@@ -89,8 +85,3 @@ class FeatureFactory(AbstractFeatureFactory):
         return Weapon(power=random.randint(5,15),
                       name=weapons[weapon_code],
                       code=weapon_code)
-
-
-
-
-

@@ -34,6 +34,10 @@ class AbstractCreature(ABC):
         """Добавить артефакт к объекту."""
         self.features[feature.code] = feature
 
+    def fight(self, other, attack_strategy):
+        """Бой соперников."""
+        attack_strategy.attack(self, other)
+
 
 class AbstractCreatureFactory(ABC):
     """Фабрика производства героев."""
@@ -56,7 +60,9 @@ class AbstractFeatureFactory(ABC):
 
 
 class AbstractAttackStrategy(ABC):
-    """Стратегия аттаки."""
+    """Стратегия аттаки.
+    Данная программа использует Стратегию
+    в качестве паттерна проектирования для поведения игрока или монстра."""
 
     @abstractmethod
     def get_available_weapons(self):
@@ -70,6 +76,7 @@ class AbstractAttackStrategy(ABC):
         Если оружие только одно, оно выбирается автоматически."""
         pass
 
+    @abstractmethod
     def attack(self):
         """Атака игрока (монстра) на соперника."""
         pass

@@ -1,3 +1,4 @@
+"""Основной алгоритм игры."""
 from player_models import Player
 from monster_models import MonsterFactory
 import random
