@@ -1,6 +1,7 @@
 """Модели для инвентаря (артефактов)."""
 from abstract_classes import AbstractEncounter, AbstractFeatureFactory
 import random
+from constants import weapons
 
 
 class Apple(AbstractEncounter):
@@ -55,12 +56,14 @@ class Weapon(AbstractEncounter):
     def encounter(self, creature):
 
         while True:
-            print(f"Вы нашли новое оружее: {self.name} силой {self.power}.")
+            print(f"Вы нашли новое оружее: {self.__str__()}.")
             print("1 - взять\n2 - пройти мимо\n")
             choice = input("Ваш выбор: ")
             if choice == "1":
+                if creature.creature_type == self.code:
+                    self.power += random.randint(0,5)
                 creature.add_feature(self)
-                print(f"У вас новое оружее! {self.name} силой {self.power}.")
+                print(f"У вас новое оружее: {self.__str__()}.")
                 break
             elif choice == "2":
                 break
@@ -77,11 +80,10 @@ class FeatureFactory(AbstractFeatureFactory):
         elif choice == 5:
             return Totem()
         power = random.randint(5,15)
-        weapons = {1: "меч", 2: "лук", 3: "книга заклинаний", 4: "стрелы"}
         return Weapon(power=power, name=weapons[choice], code=choice)
 
     def create_weapon(self, weapon_code):
-        weapons = {1: "меч", 2: "лук", 3: "книга заклинаний", 4: "стрелы"}
+
         return Weapon(power=random.randint(5,15),
                       name=weapons[weapon_code],
                       code=weapon_code)

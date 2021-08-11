@@ -15,10 +15,11 @@ class Player(AbstractCreature):
             print("Кем хотите играть:")
             choice = input(intro_text)
             if choice in ["1", "2", "3"]:
-                self.attack_strategy = AttackStrategy(fighter_type=int(choice))
-                super().__init__(creature_type=int(choice),
+                super().__init__(player_name="игрок",
+                                 creature_type=int(choice),
                                  hp=10,
-                                 features={1: Weapon(power=10, name='меч', code=1)})
+                                 features={1: Weapon(power=10, name='меч', code=1)},
+                                 attack_strategy=AttackStrategy(fighter_type=int(choice)))
                 break
 
     def has_totem(self):
@@ -40,4 +41,3 @@ class Player(AbstractCreature):
         print("У вас есть следующие артефакты: " + ", ".join(
             [str(feature) for feature in self.features.values()]))
         print()
-

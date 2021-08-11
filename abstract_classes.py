@@ -1,6 +1,7 @@
 """Классы, от которых наследуются остальные классы игры."""
 from abc import ABC, abstractmethod
 from typing import Any
+from constants import global_names
 
 
 class AbstractEncounter(ABC):
@@ -20,23 +21,28 @@ class AbstractEncounter(ABC):
 class AbstractCreature(ABC):
     """Класс для героев игры (игроков и монстров)."""
 
-    def __init__(self, creature_type: int, hp: int, features: dict):
+    def __init__(self, player_name: str, creature_type: int,
+                 hp: int, features: dict, attack_strategy):
+        # игрок или монстр
+        self.player_name = player_name
         # тип игрока
         self.creature_type = creature_type
-        names = {1: "воин", 2: "лучник", 3: "маг"}
-        self.name = names[self.creature_type]
+        # название игрока
+        self.name = global_names[self.creature_type]
         # жизни игрока
         self.hp = hp
         # артефакты игрока (например оружее, тотем и т.п.)
         self.features = features
+        # стратегия аттаки
+        self.attack_strategy = attack_strategy
 
     def add_feature(self, feature: Any):
         """Добавить артефакт к объекту."""
         self.features[feature.code] = feature
 
-    def fight(self, other, attack_strategy):
+    def fight(self, other: Any):
         """Бой соперников."""
-        attack_strategy.attack(self, other)
+        self.attack_strategy.attack(self, other)
 
 
 class AbstractCreatureFactory(ABC):
